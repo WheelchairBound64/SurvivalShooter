@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -10,16 +11,21 @@ public class PlayerMovement : MonoBehaviour
 	private int floorMask;
 	private float camRayLength = 100f;
 
+	IA_PlayerInput playerInput;
+
 	void Awake()
 	{
 		floorMask = LayerMask.GetMask("Floor");
 		anim = GetComponent<Animator>();
 		playerRigidbody = GetComponent<Rigidbody>();
+		playerInput = new IA_PlayerInput();
+		playerInput.Player.Enable();
 	}
 
 	void FixedUpdate()
 	{
-		float h = Input.GetAxisRaw("Horizontal");
+		//movement = playerInput.Player.Move.ReadValue<Vector2>();     //controls player movement using new movement system
+        float h = Input.GetAxisRaw("Horizontal");
 		float v = Input.GetAxisRaw("Vertical");
 
 		Move(h, v);
